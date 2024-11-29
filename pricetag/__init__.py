@@ -1,0 +1,2 @@
+from pricetag.pricetag_reader import PricetagReader
+from pricetag.BAG_filter_machine_pricetag_reader import BAGFilterMachinePricetagReader

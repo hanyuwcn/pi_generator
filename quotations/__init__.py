@@ -1,1 +1,0 @@
-from quotations.quotations_reader import hello_world
