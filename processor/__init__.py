@@ -1,2 +1,2 @@
-from processor.process_template import Process
+from processor.process_template import Processor
 from processor.BAG_filter_machine_process import BAGFilterMachineProcess

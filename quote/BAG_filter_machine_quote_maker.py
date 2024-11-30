@@ -1,8 +1,8 @@
 from quote import QuoteMaker
 import config
 import pandas as pd
-import numpy as np
 from utils import reader_tools, writer_tools
+
 
 class BAGFilterMachineQuoteMaker(QuoteMaker):
     def make_quote(self, enquiry, pricetag):
@@ -15,9 +15,13 @@ class BAGFilterMachineQuoteMaker(QuoteMaker):
             if product_name not in pricetag[config.PRICETAG_PRODUCT_NAME].values:
                 product_info = {config.QUOTE_PRODUCT_NAME: product_name}
             else:
-                description = reader_tools.target_column_value_in_dataframe(pricetag, config.PRICETAG_PRODUCT_NAME, product_name, config.PRICETAG_DESCRIPTION)
-                unit_price = writer_tools.translate_string_to_price(reader_tools.target_column_value_in_dataframe(pricetag, config.PRICETAG_PRODUCT_NAME, product_name, config.PRICETAG_UNIT_PRICE))
-                quantity = reader_tools.target_column_value_in_dataframe(enquiry, config.ENQUIRY_PRODUCT_NAME, product_name, config.ENQUIRY_QUANTITY)
+                description = reader_tools.target_column_value_in_dataframe(pricetag, config.PRICETAG_PRODUCT_NAME,
+                                                                            product_name, config.PRICETAG_DESCRIPTION)
+                unit_price = writer_tools.translate_string_to_price(
+                    reader_tools.target_column_value_in_dataframe(pricetag, config.PRICETAG_PRODUCT_NAME, product_name,
+                                                                  config.PRICETAG_UNIT_PRICE))
+                quantity = reader_tools.target_column_value_in_dataframe(enquiry, config.ENQUIRY_PRODUCT_NAME,
+                                                                         product_name, config.ENQUIRY_QUANTITY)
                 value = quantity * float(unit_price)
 
                 total_amount += value
@@ -33,4 +37,4 @@ class BAGFilterMachineQuoteMaker(QuoteMaker):
 
             quote_df.loc[len(quote_df)] = product_info
 
-        return {"quote": quote_df, "total_amount": total_amount}
+        return {config.QUOTE_TABLE: quote_df, config.QUOTE_TOTAL_AMOUNT: total_amount}

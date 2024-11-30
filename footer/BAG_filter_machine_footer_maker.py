@@ -3,8 +3,8 @@ import config
 
 class BAGFilterMachineFooterMaker(FooterMaker):
     def make_footer(self, info):
-        amount = info['amount']
-        deposit_amount = info['deposit_amount']
+        amount = info[config.QUOTE_TOTAL_AMOUNT]
+        deposit_amount = info[config.DEPOSIT_HEADER]
 
         footer_delivery = self._get_footer_delivery(amount)
         footer_payment = self._get_footer_payment(deposit_amount)

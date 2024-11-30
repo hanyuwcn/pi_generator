@@ -1,7 +1,5 @@
 from datetime import date
 
-from dateutil.utils import today
-
 import math
 import config
 import re

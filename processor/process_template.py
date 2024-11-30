@@ -1,6 +1,3 @@
-from email.header import Header
-
-from header import HeaderMaker
 from pricetag.pricetag_reader import PricetagReader
 from enquiry.enquiry_reader import EnquiryReader
 from header import HeaderMaker
@@ -8,7 +5,20 @@ from footer import FooterMaker
 from quote import QuoteMaker
 from output.pi_writer import PIWriter
 
-class Process:
+## the full process from reading to export framework by calling each component makers
+## each company, product-line should have their own strategy
+## since all components are handled by their correspondent modules,
+## this process is simply use different strategy object to process respectively and integrate them
+## normally modules are independent of each others,
+## but in some cases it has exceptions, such as headers depends on quotations,
+## in which cases the process would be of different orders.
+## therefore process method is left as abstract
+## all module maker methods are created with parameter-less, they call parameters from object-scoped ones,
+## this save us from the problems of different module maker involves various input parameters types
+## input: enquiry, pricetag, header, footer, quote, writer components of each module
+## output: a full process that integrate all components and eventually make the invoice
+
+class Processor:
     def __init__(self):
         self.enquiry_reader = EnquiryReader()
         self.pricetag_reader = PricetagReader()
@@ -30,7 +40,10 @@ class Process:
         self.quote = self.quote_maker.make_quote(self.enquiry, self.pricetag)
 
     def make_footer(self):
-        pass
+        self.footer = self.footer_maker.make_footer(self.quote)
 
     def write_to_output(self):
         self.pi_writer.write_to_output(self.header, self.quote, self.footer)
+
+    def process(self):
+        pass

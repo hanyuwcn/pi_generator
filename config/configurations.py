@@ -2,7 +2,7 @@
 CURRENCY = "USD"
 CURRENCY_SIGN = "$"
 QUANTITY_UNIT = "SET"
-LOADING_PORT = "GUANGZHOU, CHINA"
+LOADING_PORT = "CONSTANTINOPLE, BYZANTINE"
 DESTINATION_PORT = "ALEXANDRIA, EGYPT"
 ROUND_DIGITS = 2
 PRODUCING_TIME = 28
@@ -23,6 +23,7 @@ ENQUIRY_PRODUCT_NAME = "Product Name"
 ENQUIRY_QUANTITY = "Quantity"
 
 ## Below are related to Quote
+QUOTE_TABLE = "Quotation"
 QUOTE_PRODUCT_NAME = "Product Name"
 QUOTE_DESCRIPTION = "Description"
 QUOTE_QUANTITY = "QTY({quantity_unit})".format(quantity_unit=QUANTITY_UNIT)
@@ -30,6 +31,7 @@ QUOTE_UNIT_PRICE = "Unit FOB Price({currency})".format(currency=CURRENCY)
 QUOTE_AMOUNT = "Amount({currency})".format(currency=CURRENCY)
 
 QUOTE_HEADERS = [QUOTE_PRODUCT_NAME, QUOTE_DESCRIPTION, QUOTE_QUANTITY, QUOTE_UNIT_PRICE, QUOTE_AMOUNT]
+QUOTE_TOTAL_AMOUNT = "Total amount"
 QUOTE_DIGIT_ROUNDING = '.2f'
 
 ## Below are related to invoice header
@@ -42,6 +44,7 @@ INVOICE_NO_PREFIX = "YCMY"
 
 
 ## Below are related to invoice footer
+DEPOSIT_HEADER = "Deposit"
 DEPOSIT_PERCENTAGE = 0.3
 INVOICE_DELIVERY = "DELIVERY TERMS"
 INVOICE_PAYMENT = "Payment terms"
@@ -52,7 +55,7 @@ INVOICE_TRANSPORTATION = "Sea Freight/Flight Freight"
 
 INVOICE_PAYMENT_CONTENT = "BY T/T IN ADVANCE, Balance BY T/T BEFORE SHIPMENT"
 INVOICE_PRODUCING_TIME_CONTENT = "days after receiving the deposit"
-INVOICE_TRANSPORTATION_CONTENT = "To book by buyer"
+INVOICE_TRANSPORTATION_CONTENT = "To book by the buyer"
 
 
 
