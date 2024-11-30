@@ -1,1 +1,0 @@
-from writer.write_to_csv import write_to_file

@@ -1,8 +1,12 @@
 from writer import write_to_file
 from pricetag import BAGFilterMachinePricetagReader
 from utils import reader_tools
+from utils import writer_tools
 from enquiry import BAGFilterMachineEnquiryReader
-
+from output import BAGFilterMachinePIWriter, PIWriter
+from header import BAGFilterMachineHeaderMaker
+from footer import BAGFilterMachineFooterMaker
+from quote import BAGFilterMachineQuoteMaker
 import config
 
 from processor import BAGFilterMachineProcess
@@ -12,17 +16,15 @@ from processor import BAGFilterMachineProcess
 ## (TODO) Add python documents to methods and classes
 
 if __name__ == '__main__':
-    # pricetag_df = BAGFilterMachinePricetagReader().read_pricetag()
-    # print(pricetag_df)
-    # print(target_column_value_in_dataframe(pricetag_df, "Product Name", "product A", "UNIT FOB PRICE "))
+    enquiry = BAGFilterMachineEnquiryReader().read_enquiry()
+    pricetag = BAGFilterMachinePricetagReader().read_pricetag()
 
-    # enquiry_reader = BAGFilterMachineEnquiryReader()
-    # print(enquiry_reader.read_enquiry())
-
-    # print(reader_tools.translate_string_to_price('5 USD'))
+    print(BAGFilterMachineHeaderMaker().make_header())
 
 
-    process = BAGFilterMachineProcess()
-    print(process.read_enquiry())
-    print(process.read_pricetag())
-    print(process.make_quote())
+    quote_maker = BAGFilterMachineQuoteMaker()
+    quote_info = quote_maker.make_quote(enquiry, pricetag)
+
+    info = {"amount": quote_info["total_amount"], "deposit_amount": writer_tools.get_deposit(quote_info["total_amount"])}
+    footer_maker = BAGFilterMachineFooterMaker()
+    print(footer_maker.make_footer(info))

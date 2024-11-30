@@ -1,3 +1,12 @@
+## Below are global variables
+CURRENCY = "USD"
+CURRENCY_SIGN = "$"
+QUANTITY_UNIT = "SET"
+LOADING_PORT = "GUANGZHOU, CHINA"
+DESTINATION_PORT = "ALEXANDRIA, EGYPT"
+ROUND_DIGITS = 2
+PRODUCING_TIME = 28
+
 ## Below are related to Pricetag file
 PRICETAG_FILE_NAME = "Pricetag.xlsx"
 
@@ -16,20 +25,36 @@ ENQUIRY_QUANTITY = "Quantity"
 ## Below are related to Quote
 QUOTE_PRODUCT_NAME = "Product Name"
 QUOTE_DESCRIPTION = "Description"
-QUOTE_QUANTITY = "QTY"
-QUOTE_UNIT_PRICE = "Unit FOB Price(USD)"
-QUOTE_AMOUNT = "Amount(USD)"
+QUOTE_QUANTITY = "QTY({quantity_unit})".format(quantity_unit=QUANTITY_UNIT)
+QUOTE_UNIT_PRICE = "Unit FOB Price({currency})".format(currency=CURRENCY)
+QUOTE_AMOUNT = "Amount({currency})".format(currency=CURRENCY)
 
 QUOTE_HEADERS = [QUOTE_PRODUCT_NAME, QUOTE_DESCRIPTION, QUOTE_QUANTITY, QUOTE_UNIT_PRICE, QUOTE_AMOUNT]
-QUOTE_DIGIT_ROUNDING = 2
+QUOTE_DIGIT_ROUNDING = '.2f'
 
 ## Below are related to invoice header
-TITLE = "Proforma Invoice"
+INVOICE_TITLE = "Proforma Invoice"
+INVOICE_RECIPIENT = "TO MESSRS"
+INVOICE_ADDRESS = "ADD"
+INVOICE_DATE = "DATE"
+INVOICE_NO = "INVOICE NO."
+INVOICE_NO_PREFIX = "YCMY"
 
-INVOICE_PREFIX = "YCMY"
 
 ## Below are related to invoice footer
 DEPOSIT_PERCENTAGE = 0.3
+INVOICE_DELIVERY = "DELIVERY TERMS"
+INVOICE_PAYMENT = "Payment terms"
+INVOICE_PORT = "Port of Loading"
+INVOICE_PRODUCING_TIME = "Producing Time"
+INVOICE_DESTINATION = "Destination Port"
+INVOICE_TRANSPORTATION = "Sea Freight/Flight Freight"
 
-FOOTERS = ["Delivery Terms", "Payment Terms", "Port of Loading", "Producing Time", "Destination Port", "Sea Freight/Flight Freight"]
+INVOICE_PAYMENT_CONTENT = "BY T/T IN ADVANCE, Balance BY T/T BEFORE SHIPMENT"
+INVOICE_PRODUCING_TIME_CONTENT = "days after receiving the deposit"
+INVOICE_TRANSPORTATION_CONTENT = "To book by buyer"
 
+
+
+## Below are related to PI
+PI_FILE_NAME = "PI of BAG filter machine.xlsx"
