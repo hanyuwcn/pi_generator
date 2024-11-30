@@ -1,5 +1,3 @@
-import pandas as pd
-
 from processor import Processor
 from enquiry import BAGFilterMachineEnquiryReader
 from pricetag import BAGFilterMachinePricetagReader
@@ -8,7 +6,7 @@ from footer import BAGFilterMachineFooterMaker
 from quote import BAGFilterMachineQuoteMaker
 from output import BAGFilterMachinePIWriter
 
-from utils import reader_tools, writer_tools
+from utils import writer_tools
 
 import config
 
@@ -34,8 +32,4 @@ class BAGFilterMachineProcess(Processor):
         self.make_header()
         self.make_quote()
         self.make_footer()
-        # self.write_to_output()
-
-        print(self.header)
-        print(self.quote[config.QUOTE_TABLE])
-        print(self.footer)
+        self.write_to_output()

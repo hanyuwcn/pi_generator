@@ -27,8 +27,6 @@ class BAGFilterMachineQuoteMaker(QuoteMaker):
                 total_amount += value
                 amount = writer_tools.translate_value_to_price(value)
 
-                ## (TODO) Add an index
-
                 product_info = {config.QUOTE_PRODUCT_NAME: product_name,
                                 config.QUOTE_DESCRIPTION: description,
                                 config.QUOTE_QUANTITY: quantity,

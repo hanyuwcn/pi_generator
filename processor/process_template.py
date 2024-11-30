@@ -1,9 +1,9 @@
-from pricetag.pricetag_reader import PricetagReader
-from enquiry.enquiry_reader import EnquiryReader
+from pricetag import PricetagReader
+from enquiry import EnquiryReader
 from header import HeaderMaker
 from footer import FooterMaker
 from quote import QuoteMaker
-from output.pi_writer import PIWriter
+from output import PIWriter
 
 ## the full process from reading to export framework by calling each component makers
 ## each company, product-line should have their own strategy
@@ -20,6 +20,12 @@ from output.pi_writer import PIWriter
 
 class Processor:
     def __init__(self):
+        self.pricetag = None
+        self.enquiry = None
+        self.header = None
+        self.quote = None
+        self.footer = None
+
         self.enquiry_reader = EnquiryReader()
         self.pricetag_reader = PricetagReader()
         self.header_maker = HeaderMaker()

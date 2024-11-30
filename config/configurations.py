@@ -61,3 +61,5 @@ INVOICE_TRANSPORTATION_CONTENT = "To book by the buyer"
 
 ## Below are related to PI
 PI_FILE_NAME = "PI of BAG filter machine.xlsx"
+PI_INVOICE_INDEX = "NO"
+PI_MISSING_VALUE_PLACEMENT = "N/A"

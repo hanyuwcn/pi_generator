@@ -18,7 +18,7 @@ class BAGFilterMachineFooterMaker(FooterMaker):
                 config.INVOICE_PORT: footer_port,
                 config.INVOICE_PRODUCING_TIME: footer_producing_time,
                 config.INVOICE_DESTINATION: footer_destination,
-                config.INVOICE_TRANSPORTATION: footer_transportation}
+                config.INVOICE_TRANSPORTATION: footer_transportation} ## (TODO) set this dictionary static into configurations
 
     @staticmethod
     def _get_footer_delivery(amount):

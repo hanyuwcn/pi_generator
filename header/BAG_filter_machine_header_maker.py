@@ -1,6 +1,7 @@
 from header import HeaderMaker
-import config
 from utils import writer_tools
+
+import config
 
 class BAGFilterMachineHeaderMaker(HeaderMaker):
     def make_header(self):
