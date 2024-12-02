@@ -1,6 +1,5 @@
 ## Below are log related
 from datetime import datetime
-
 from config import PRODUCT
 
 APPLICATION = "Performa_Invoice_Generator"

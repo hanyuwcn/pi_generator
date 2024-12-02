@@ -31,9 +31,10 @@ class SpicesProcessor(Processor):
 
     def make_footer(self):
         total_amount = self.quote[config.QUOTE_TOTAL_AMOUNT]
-        deposit = writer_tools.get_deposit(total_amount)
+        deposit = writer_tools.get_deposit(total_amount, rounding=False)
 
-        self.footer = self.footer_maker.make_footer({config.QUOTE_TOTAL_AMOUNT: total_amount, config.DEPOSIT_HEADER: deposit})
+        self.footer = self.footer_maker.make_footer(
+            {config.QUOTE_TOTAL_AMOUNT: total_amount, config.DEPOSIT_HEADER: deposit})
 
     def process(self):
         self.read_catalog()

@@ -12,14 +12,17 @@ def generate_invoice_number():
     datefix = str(date.today().strftime("%y%m%d"))
     return prefix + "-" + datefix
 
-def get_deposit(amount, deposit_percentage = config.DEPOSIT_PERCENTAGE):
-    multiple = 1
-    portion = amount * deposit_percentage
+def get_deposit(amount, deposit_percentage = config.DEPOSIT_PERCENTAGE, rounding = True):
+    if rounding:
+        multiple = 1
+        portion = amount * deposit_percentage
 
-    while portion / multiple > 10:
-        multiple *= 10
+        while portion / multiple > 10:
+            multiple *= 10
 
-    return math.floor(portion / multiple) * multiple
+        return math.floor(portion / multiple) * multiple
+    else:
+        return amount * deposit_percentage
 
 def translate_string_to_price(price_str):
     return re.findall(r"\d+\.?\d*", price_str)[0]

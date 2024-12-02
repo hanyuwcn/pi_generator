@@ -1,4 +1,5 @@
 import catalog
+import utils.writer_tools
 from catalog import SpicesCatalogReader
 from utils import reader_tools
 from utils import writer_tools
