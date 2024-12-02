@@ -6,7 +6,9 @@ from footer import SpicesFooterMaker
 from quote import SpicesQuoteMaker
 from output import SpicesPIWriter
 
-from utils import writer_tools, logger
+from utils import writer_tools
+from system import logger
+
 import traceback
 
 import config

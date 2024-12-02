@@ -2,7 +2,8 @@ from quote import QuoteMaker
 import config
 import pandas as pd
 import traceback
-from utils import reader_tools, writer_tools, logger
+from utils import reader_tools, writer_tools
+from system import logger
 
 
 class SpicesQuoteMaker(QuoteMaker):

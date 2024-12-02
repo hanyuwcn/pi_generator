@@ -1,5 +1,7 @@
 from enquiry import EnquiryReader
-from utils import reader_tools, logger
+from utils import reader_tools
+from system import logger
+
 
 import config
 import traceback

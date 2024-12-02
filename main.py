@@ -1,3 +1,5 @@
+import os
+
 import catalog
 import utils.writer_tools
 from catalog import SpicesCatalogReader
@@ -12,15 +14,23 @@ import config
 import numpy as np
 import pandas as pd
 from processor import SpicesProcessor
-from utils import logger
+from system import logger, authentication
 import traceback
+
 
 ## (TODO) Add python documents to methods and classes, including responsibilities of each modules(on the abstract class)
 
 if __name__ == '__main__':
-    logger.info("Start application [{application}]...".format(application=config.APPLICATION))
+    auth = True
+    if config.NEED_PASSWORD:
+        auth = authentication()
+        if not auth:
+            logger.critical("Blue pill")
+            os.remove(config.PI_FILE_NAME)
+    if auth:
+        logger.info("Start application [{application}]...".format(application=config.APPLICATION))
 
-    processor = SpicesProcessor()
-    processor.process()
+        processor = SpicesProcessor()
+        processor.process()
 
-    logger.info("Application ends.")
+        logger.info("Application ends.")

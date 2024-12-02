@@ -1,5 +1,6 @@
-from utils import reader_tools, logger
+from utils import reader_tools
 from catalog import CatalogReader
+from system import logger
 
 import config
 import traceback

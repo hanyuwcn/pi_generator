@@ -1,5 +1,7 @@
 from output.pi_writer import PIWriter
-from utils import writer_tools, logger
+from utils import writer_tools
+from system import logger
+
 
 import xlsxwriter
 import os

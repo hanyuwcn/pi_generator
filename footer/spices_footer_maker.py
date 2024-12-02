@@ -1,6 +1,7 @@
 from footer import FooterMaker
 import config
-from utils import writer_tools, logger
+from utils import writer_tools
+from system import logger
 import traceback
 
 class SpicesFooterMaker(FooterMaker):
@@ -33,7 +34,6 @@ class SpicesFooterMaker(FooterMaker):
                     config.INVOICE_INSURANCE_TITLE: footer_insurance,
                     config.INVOICE_TRANSPORTATION_TITLE: footer_transportation}
             ## (TODO) set this dictionary static into configurations
-            print(footer)
 
             return footer
         except Exception as e:

@@ -3,7 +3,7 @@ from utils import writer_tools
 
 import config
 import traceback
-from utils import logger
+from system import logger
 
 class SpicesHeaderMaker(HeaderMaker):
     def make_header(self):
