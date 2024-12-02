@@ -24,5 +24,5 @@ class SpicesHeaderMaker(HeaderMaker):
                     config.INVOICE_DATE: date,
                     config.INVOICE_NO: number}  ## (TODO) set this dictionary static into configurations
         except Exception as e:
-            logger.error("Aplication collapse when making the header!")
+            logger.error("Application collapse when making the header!")
             logger.error(f"{e.__class__}, occur_error: {traceback.format_exc()}")

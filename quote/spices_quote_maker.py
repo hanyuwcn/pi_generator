@@ -16,14 +16,14 @@ class SpicesQuoteMaker(QuoteMaker):
             total_amount = 0.0
 
             for product_name in enquiry[config.ENQUIRY_PRODUCT_NAME].values:
-                if product_name not in pricetag[config.PRICETAG_PRODUCT_NAME].values:
+                if product_name not in pricetag[config.CATALOG_PRODUCT_NAME].values:
                     product_info = {config.QUOTE_PRODUCT_NAME: product_name}
                 else:
-                    description = reader_tools.target_column_value_in_dataframe(pricetag, config.PRICETAG_PRODUCT_NAME,
-                                                                                product_name, config.PRICETAG_DESCRIPTION)
+                    description = reader_tools.target_column_value_in_dataframe(pricetag, config.CATALOG_PRODUCT_NAME,
+                                                                                product_name, config.CATALOG_DESCRIPTION)
                     unit_price = writer_tools.translate_string_to_price(
-                        reader_tools.target_column_value_in_dataframe(pricetag, config.PRICETAG_PRODUCT_NAME, product_name,
-                                                                      config.PRICETAG_UNIT_PRICE))
+                        reader_tools.target_column_value_in_dataframe(pricetag, config.CATALOG_PRODUCT_NAME, product_name,
+                                                                      config.CATALOG_UNIT_PRICE))
                     quantity = reader_tools.target_column_value_in_dataframe(enquiry, config.ENQUIRY_PRODUCT_NAME,
                                                                              product_name, config.ENQUIRY_QUANTITY)
                     value = quantity * float(unit_price)

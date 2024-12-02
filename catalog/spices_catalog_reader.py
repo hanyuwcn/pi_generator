@@ -10,7 +10,7 @@ class SpicesCatalogReader(CatalogReader):
         try:
             logger.info("Start reading catalog...")
 
-            df_catalog = reader_tools.read_excel_to_pandas(config.PRICETAG_FILE_NAME)
+            df_catalog = reader_tools.read_excel_to_pandas(config.CATALOG_FILE_NAME)
 
             logger.info("Catalog successfully read.")
 

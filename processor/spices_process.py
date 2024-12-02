@@ -1,5 +1,3 @@
-import logging
-
 from processor import Processor
 from enquiry import SpicesEnquiryReader
 from catalog import SpicesCatalogReader

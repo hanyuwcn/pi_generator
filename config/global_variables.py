@@ -1,4 +1,4 @@
-PRODUCT = "Spicies"
+PRODUCT = "Spices"
 CURRENCY = "USD"
 CURRENCY_SIGN = "$"
 QUANTITY_UNIT = "SET"

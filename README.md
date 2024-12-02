@@ -9,8 +9,7 @@ This script is to generate PI based on inquried products and their quotations. I
 
 
 Notes:
-1. Please leave empty headers for inquery form. Only product names and quantities are needed.
-2. Make sure product names in the inquery form is precisely matched with that in the pricetag with capital sensitivity, otherwise they will be considered as non-offered products. 
+1. Input requires `Enquiry.xlsx` and `Catalog.xlsx` respectively to generate `PI of Spices.xlsx`. All files should left on the same folder as the application entrance.
+2. Make sure the column names matches with that in the configurations.
 3. If quantity in the inquery form is left empty it will be recognized as 1.
-
-4. To generate new exe file, please run `pyinstaller -F main.py` and find 'main.exe' in the `dist` directory
+4. To generate new exe file, please run `pyinstaller -F main.py` and find 'main.exe' in the `dist` directory.
