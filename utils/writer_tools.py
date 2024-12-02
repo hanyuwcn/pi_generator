@@ -10,7 +10,7 @@ def get_current_date():
 def generate_invoice_number():
     prefix = config.INVOICE_NO_PREFIX
     datefix = str(date.today().strftime("%y%m%d"))
-    return prefix + datefix
+    return prefix + "-" + datefix
 
 def get_deposit(amount, deposit_percentage = config.DEPOSIT_PERCENTAGE):
     multiple = 1

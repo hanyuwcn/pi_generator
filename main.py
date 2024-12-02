@@ -1,19 +1,25 @@
-from pricetag import BAGFilterMachinePricetagReader
+import catalog
+from catalog import SpicesCatalogReader
 from utils import reader_tools
 from utils import writer_tools
-from enquiry import BAGFilterMachineEnquiryReader
-from output import BAGFilterMachinePIWriter, PIWriter
-from header import BAGFilterMachineHeaderMaker
-from footer import BAGFilterMachineFooterMaker
-from quote import BAGFilterMachineQuoteMaker
+from enquiry import SpicesEnquiryReader
+from output import SpicesPIWriter, PIWriter
+from header import SpicesHeaderMaker
+from footer import SpicesFooterMaker
+from quote import SpicesQuoteMaker
 import config
 import numpy as np
 import pandas as pd
-from processor import BAGFilterMachineProcess
+from processor import SpicesProcessor
+from utils import logger
+import traceback
 
-## (TODO) Add log that can export to an txt file
 ## (TODO) Add python documents to methods and classes, including responsibilities of each modules(on the abstract class)
 
 if __name__ == '__main__':
-    processor = BAGFilterMachineProcess()
+    logger.info("Start application [{application}]...".format(application=config.APPLICATION))
+
+    processor = SpicesProcessor()
     processor.process()
+
+    logger.info("Application ends.")

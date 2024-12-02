@@ -1,4 +1,4 @@
-from pricetag import PricetagReader
+from catalog import CatalogReader
 from enquiry import EnquiryReader
 from header import HeaderMaker
 from footer import FooterMaker
@@ -15,26 +15,26 @@ from output import PIWriter
 ## therefore process method is left as abstract
 ## all module maker methods are created with parameter-less, they call parameters from object-scoped ones,
 ## this save us from the problems of different module maker involves various input parameters types
-## input: enquiry, pricetag, header, footer, quote, writer components of each module
+## input: enquiry, catalog, header, footer, quote, writer components of each module
 ## output: a full process that integrate all components and eventually make the invoice
 
 class Processor:
     def __init__(self):
-        self.pricetag = None
+        self.catalog = None
         self.enquiry = None
         self.header = None
         self.quote = None
         self.footer = None
 
         self.enquiry_reader = EnquiryReader()
-        self.pricetag_reader = PricetagReader()
+        self.catalog_reader = CatalogReader()
         self.header_maker = HeaderMaker()
         self.footer_maker = FooterMaker()
         self.quote_maker = QuoteMaker()
         self.pi_writer = PIWriter()
 
-    def read_pricetag(self):
-        self.pricetag = self.pricetag_reader.read_pricetag()
+    def read_catalog(self):
+        self.catalog = self.catalog_reader.read_catalog()
 
     def read_enquiry(self):
         self.enquiry = self.enquiry_reader.read_enquiry()
@@ -43,7 +43,7 @@ class Processor:
         self.header = self.header_maker.make_header()
 
     def make_quote(self):
-        self.quote = self.quote_maker.make_quote(self.enquiry, self.pricetag)
+        self.quote = self.quote_maker.make_quote(self.enquiry, self.catalog)
 
     def make_footer(self):
         self.footer = self.footer_maker.make_footer(self.quote)

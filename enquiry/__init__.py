@@ -1,2 +1,2 @@
 from enquiry.enquiry_reader import EnquiryReader
-from enquiry.BAG_filter_machine_enquiry_reader import BAGFilterMachineEnquiryReader
+from enquiry.spices_enquiry_reader import SpicesEnquiryReader

@@ -1,2 +1,2 @@
 from footer.footer_maker import FooterMaker
-from footer.BAG_filter_machine_footer_maker import BAGFilterMachineFooterMaker
+from footer.spices_footer_maker import SpicesFooterMaker

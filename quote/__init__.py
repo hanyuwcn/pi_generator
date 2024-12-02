@@ -1,2 +1,2 @@
 from quote.quote_maker import QuoteMaker
-from quote.BAG_filter_machine_quote_maker import BAGFilterMachineQuoteMaker
+from quote.spices_quote_maker import SpicesQuoteMaker

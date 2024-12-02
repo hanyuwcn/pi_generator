@@ -1,24 +1,34 @@
 from footer import FooterMaker
 import config
+from utils import logger
+import traceback
 
-class BAGFilterMachineFooterMaker(FooterMaker):
+class SpicesFooterMaker(FooterMaker):
     def make_footer(self, info):
-        amount = info[config.QUOTE_TOTAL_AMOUNT]
-        deposit_amount = info[config.DEPOSIT_HEADER]
+        try:
+            logger.info("Start making footer...")
 
-        footer_delivery = self._get_footer_delivery(amount)
-        footer_payment = self._get_footer_payment(deposit_amount)
-        footer_port = self._get_footer_port()
-        footer_producing_time = self._get_footer_producing_time()
-        footer_destination = self._get_footer_destination()
-        footer_transportation = self._get_footer_transportation()
+            amount = info[config.QUOTE_TOTAL_AMOUNT]
+            deposit_amount = info[config.DEPOSIT_HEADER]
 
-        return {config.INVOICE_DELIVERY: footer_delivery,
-                config.INVOICE_PAYMENT: footer_payment,
-                config.INVOICE_PORT: footer_port,
-                config.INVOICE_PRODUCING_TIME: footer_producing_time,
-                config.INVOICE_DESTINATION: footer_destination,
-                config.INVOICE_TRANSPORTATION: footer_transportation} ## (TODO) set this dictionary static into configurations
+            footer_delivery = self._get_footer_delivery(amount)
+            footer_payment = self._get_footer_payment(deposit_amount)
+            footer_port = self._get_footer_port()
+            footer_producing_time = self._get_footer_producing_time()
+            footer_destination = self._get_footer_destination()
+            footer_transportation = self._get_footer_transportation()
+
+            logger.info("Footer successfully made.")
+
+            return {config.INVOICE_DELIVERY: footer_delivery,
+                    config.INVOICE_PAYMENT: footer_payment,
+                    config.INVOICE_PORT: footer_port,
+                    config.INVOICE_PRODUCING_TIME: footer_producing_time,
+                    config.INVOICE_DESTINATION: footer_destination,
+                    config.INVOICE_TRANSPORTATION: footer_transportation}  ## (TODO) set this dictionary static into configurations
+        except Exception as e:
+            logger.error("Application collapse when making the footer!")
+            logger.error(f"{e.__class__}, occur_error: {traceback.format_exc()}")
 
     @staticmethod
     def _get_footer_delivery(amount):
