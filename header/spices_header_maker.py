@@ -5,6 +5,7 @@ import config
 import traceback
 from system import logger
 
+
 class SpicesHeaderMaker(HeaderMaker):
     def make_header(self):
         try:
@@ -14,7 +15,8 @@ class SpicesHeaderMaker(HeaderMaker):
             buyer = config.INVOICE_BUYER + ":"
             seller = config.INVOICE_SELLER + ":"
             date = "{date_title}: {date}".format(date_title=config.INVOICE_DATE, date=writer_tools.get_current_date())
-            number = "{invoice_number_title}: {invoice_number}".format(invoice_number_title=config.INVOICE_NO, invoice_number=writer_tools.generate_invoice_number())
+            number = "{invoice_number_title}: {invoice_number}".format(invoice_number_title=config.INVOICE_NO,
+                                                                       invoice_number=writer_tools.generate_invoice_number())
 
             logger.info("Header successfully made.")
 

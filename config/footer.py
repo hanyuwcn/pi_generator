@@ -4,7 +4,7 @@ DEPOSIT_PERCENTAGE = 0.3
 INVOICE_TOTAL_PRICE_TITLE = "Total Price"
 
 INVOICE_PACKING_TITLE = "Packing"
-INVOICE_PACKING_TERM = "in wooden case"
+INVOICE_PACKING_TERM = "in wooden cases"
 
 INVOICE_PAYMENT_TITLE = "Payment terms"
 INVOICE_PAYMENT_RULE = "T/T 30% as deposit,T/T 70% balance against B/L"

@@ -4,6 +4,7 @@ from utils import writer_tools
 from system import logger
 import traceback
 
+
 class SpicesFooterMaker(FooterMaker):
     def make_footer(self, info):
         try:
@@ -25,14 +26,14 @@ class SpicesFooterMaker(FooterMaker):
             logger.info("Footer successfully made.")
 
             footer = {config.INVOICE_TOTAL_PRICE_TITLE: footer_total_price,
-                    config.DEPOSIT_HEADER: footer_deposit,
-                    config.INVOICE_PACKING_TITLE: footer_packing,
-                    config.INVOICE_PAYMENT_TITLE: footer_payment,
-                    config.INVOICE_PORT_TITLE: footer_port,
-                    config.INVOICE_DELIVERY_TIME_TITLE: footer_delivery_time,
-                    config.INVOICE_DESTINATION_TITLE: footer_destination,
-                    config.INVOICE_INSURANCE_TITLE: footer_insurance,
-                    config.INVOICE_TRANSPORTATION_TITLE: footer_transportation}
+                      config.DEPOSIT_HEADER: footer_deposit,
+                      config.INVOICE_PACKING_TITLE: footer_packing,
+                      config.INVOICE_PAYMENT_TITLE: footer_payment,
+                      config.INVOICE_PORT_TITLE: footer_port,
+                      config.INVOICE_DELIVERY_TIME_TITLE: footer_delivery_time,
+                      config.INVOICE_DESTINATION_TITLE: footer_destination,
+                      config.INVOICE_INSURANCE_TITLE: footer_insurance,
+                      config.INVOICE_TRANSPORTATION_TITLE: footer_transportation}
             ## (TODO) set this dictionary static into configurations
 
             return footer
@@ -51,8 +52,8 @@ class SpicesFooterMaker(FooterMaker):
     @staticmethod
     def _get_footer_deposit(amount):
         return "{deposit_percentage} deposit={deposit_amount} {currency}".format(
-            deposit_percentage=str(config.DEPOSIT_PERCENTAGE*100) + "%",
-            deposit_amount=writer_tools.get_deposit(amount, rounding=False),
+            deposit_percentage=str(config.DEPOSIT_PERCENTAGE * 100) + "%",
+            deposit_amount=writer_tools.get_deposit(amount, makeup=False),
             currency=config.CURRENCY)
 
     @staticmethod
@@ -61,10 +62,9 @@ class SpicesFooterMaker(FooterMaker):
             packing_title=config.INVOICE_PACKING_TITLE,
             packing_term=config.INVOICE_PACKING_TERM)
 
-
     @staticmethod
     def _get_footer_payment(deposit_amount):
-        return  "{payment_title}: {payment_rule}".format(
+        return "{payment_title}: {payment_rule}".format(
             payment_title=config.INVOICE_PAYMENT_TITLE,
             payment_rule=config.INVOICE_PAYMENT_RULE)
 
@@ -97,4 +97,3 @@ class SpicesFooterMaker(FooterMaker):
         return "{transportation_title}: {transportation_content}".format(
             transportation_title=config.INVOICE_TRANSPORTATION_TITLE,
             transportation_content=config.INVOICE_TRANSPORTATION_CONTENT)
-

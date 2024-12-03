@@ -1,13 +1,13 @@
-from output.pi_writer import PIWriter
+from output import PIWriter
 from utils import writer_tools
 from system import logger
-
 
 import xlsxwriter
 import os
 import pandas as pd
 import config
 import traceback
+
 
 class SpicesPIWriter(PIWriter):
     def __init__(self):
@@ -46,7 +46,6 @@ class SpicesPIWriter(PIWriter):
 
         workbook.close()
         logger.info("Invoice successfully wrote into Excel worksheet.")
-
 
     def write_header(self, header):
         try:
@@ -96,42 +95,13 @@ class SpicesPIWriter(PIWriter):
             self.worksheet.write(self.row, 0, "{remark}:".format(remark=config.REMARK_TITLE))
             self.row += 1
 
-            index = 1
-            self.worksheet.write(self.row, 0, "{index}. {packing}"
-                                 .format(index=index, packing=footer[config.INVOICE_PACKING_TITLE]))
-            index += 1
-            self.row += 1
-
-            self.worksheet.write(self.row, 0, "{index}. {payment_terms}"
-                                 .format(index=index, payment_terms=footer[config.INVOICE_PAYMENT_TITLE]))
-            index += 1
-            self.row += 1
-
-            self.worksheet.write(self.row, 0, "{index}. {port_of_loading}"
-                                 .format(index=index, port_of_loading=footer[config.INVOICE_PORT_TITLE]))
-            index += 1
-            self.row += 1
-
-            self.worksheet.write(self.row, 0, "{index}. {producing_time}"
-                                 .format(index=index, producing_time=footer[config.INVOICE_DELIVERY_TIME_TITLE]))
-            index += 1
-            self.row += 1
-
-            self.worksheet.write(self.row, 0,
-                                 "{index}. {destination_port}"
-                                 .format(index=index, destination_port=footer[config.INVOICE_DESTINATION_TITLE]))
-            index += 1
-            self.row += 1
-
-            self.worksheet.write(self.row, 0,
-                                 "{index}. {insurance}"
-                                 .format(index=index, insurance=footer[config.INVOICE_INSURANCE_TITLE]))
-            index += 1
-            self.row += 1
-
-            self.worksheet.write(self.row, 0,
-                                 "{index}. {transportation}"
-                                 .format(index=index, transportation=footer[config.INVOICE_TRANSPORTATION_TITLE]))
+            self._write_items_with_index([footer[config.INVOICE_PACKING_TITLE],
+                                          footer[config.INVOICE_PAYMENT_TITLE],
+                                          footer[config.INVOICE_PORT_TITLE],
+                                          footer[config.INVOICE_DELIVERY_TIME_TITLE],
+                                          footer[config.INVOICE_DESTINATION_TITLE],
+                                          footer[config.INVOICE_INSURANCE_TITLE],
+                                          footer[config.INVOICE_TRANSPORTATION_TITLE]])
 
             logger.debug("Footers successfully wrote into Excel worksheet.")
         except Exception as e:
@@ -142,7 +112,6 @@ class SpicesPIWriter(PIWriter):
         self.worksheet.write(self.row, 0, config.PI_INVOICE_INDEX)
         self.worksheet.write_row(self.row, 1, quote_headers)
         self.row += 1
-
 
     def write_quote_content(self, quote_content):
         index = 1
@@ -166,4 +135,9 @@ class SpicesPIWriter(PIWriter):
         self.worksheet.write(self.row, col, writer_tools.translate_value_to_price(total_amount))
         self.row += 1
 
-
+    def _write_items_with_index(self, items):
+        index = 1
+        for item in items:
+            self.worksheet.write(self.row, 0, "{index}. {item}".format(index=index, item=item))
+            self.row += 1
+            index += 1

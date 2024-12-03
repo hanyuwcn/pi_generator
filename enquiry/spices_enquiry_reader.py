@@ -2,9 +2,9 @@ from enquiry import EnquiryReader
 from utils import reader_tools
 from system import logger
 
-
 import config
 import traceback
+
 
 class SpicesEnquiryReader(EnquiryReader):
     def read_enquiry(self):

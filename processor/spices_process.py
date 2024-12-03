@@ -13,6 +13,7 @@ import traceback
 
 import config
 
+
 class SpicesProcessor(Processor):
     def __init__(self):
         try:
@@ -33,7 +34,7 @@ class SpicesProcessor(Processor):
 
     def make_footer(self):
         total_amount = self.quote[config.QUOTE_TOTAL_AMOUNT]
-        deposit = writer_tools.get_deposit(total_amount, rounding=False)
+        deposit = writer_tools.get_deposit(total_amount, makeup=False)
 
         self.footer = self.footer_maker.make_footer(
             {config.QUOTE_TOTAL_AMOUNT: total_amount, config.DEPOSIT_HEADER: deposit})

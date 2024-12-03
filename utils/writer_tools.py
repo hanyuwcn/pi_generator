@@ -12,8 +12,16 @@ def generate_invoice_number():
     datefix = str(date.today().strftime("%y%m%d"))
     return prefix + "-" + datefix
 
-def get_deposit(amount, deposit_percentage = config.DEPOSIT_PERCENTAGE, rounding = True):
-    if rounding:
+def get_deposit(amount, deposit_percentage = config.DEPOSIT_PERCENTAGE, makeup = True):
+    """
+    Get deposit amount from a quote
+
+    :param amount: total amount
+    :param deposit_percentage: percentage of deposit to total amount
+    :param makeup: either the deposit would be some tens, hundreds number. This is NOT digit rounding
+    :return:
+    """
+    if makeup:
         multiple = 1
         portion = amount * deposit_percentage
 
@@ -22,13 +30,13 @@ def get_deposit(amount, deposit_percentage = config.DEPOSIT_PERCENTAGE, rounding
 
         return math.floor(portion / multiple) * multiple
     else:
-        return amount * deposit_percentage
+        return round(amount * deposit_percentage, ndigits=config.ROUND_DIGITS)
 
-def translate_string_to_price(price_str):
-    return re.findall(r"\d+\.?\d*", price_str)[0]
+def extract_number_from_string(str):
+    number = re.findall(r"\d+\.?\d*", str)[0]
+    return float(number)
 
 def translate_value_to_price(value):
-    # digit_value = format(value, config.QUOTE_DIGIT_ROUNDING)
-    # ## (TODO) digit rounding to string is not compatible with thousands separation to string
+    ## (TODO) digit rounding to string is not compatible with thousands separation to string
     value = f'{round(value, config.ROUND_DIGITS):,}'
     return config.CURRENCY_SIGN + value
