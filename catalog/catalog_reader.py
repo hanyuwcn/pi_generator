@@ -11,3 +11,6 @@
 class CatalogReader:
     def read_catalog(self):
         pass
+
+    def validate(self):
+        pass

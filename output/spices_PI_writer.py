@@ -18,8 +18,8 @@ class SpicesPIWriter(PIWriter):
     def write_to_output(self, header, quote, footer):
         try:
             if os.path.exists(config.PI_FILE_NAME):
-                logger.info("{file} already existed.".format(file=config.PI_FILE_NAME))
-                logger.info("{file} is being replaced with new version.".format(file=config.PI_FILE_NAME))
+                logger.info("{pi_file} already existed.".format(pi_file=config.PI_FILE_NAME))
+                logger.info("{pi_file} is being replaced with new version.".format(pi_file=config.PI_FILE_NAME))
                 os.remove(config.PI_FILE_NAME)
         except Exception as e:
             logger.error("Application collapse when attempting to remove existing file!")

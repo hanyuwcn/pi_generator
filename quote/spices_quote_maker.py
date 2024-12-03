@@ -13,7 +13,7 @@ class SpicesQuoteMaker(QuoteMaker):
 
             reader_tools.fill_empty_quantity(enquiry, value=1)
 
-            catalog_columns = list(catalog.columns)
+            catalog_columns = list(catalog.columns)   ## (TODO) Need to catch columns not exist error
             catalog_columns.extend([config.QUOTE_UNIT_PRICE, config.QUOTE_QUANTITY, config.QUOTE_AMOUNT])
             quote_df = pd.DataFrame(columns=catalog_columns)
 

@@ -1,7 +1,8 @@
 import logging
 import config
 
-logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=config.LOG_LEVEL)
 
 logger = logging.getLogger(config.APPLICATION)
 

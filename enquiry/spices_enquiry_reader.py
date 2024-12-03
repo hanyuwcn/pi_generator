@@ -11,11 +11,22 @@ class SpicesEnquiryReader(EnquiryReader):
         try:
             logger.info("Start reading enquiry...")
 
-            enquiry = reader_tools.read_excel_to_pandas(config.ENQUIRY_FILE_NAME)
+            self.enquiry_df = reader_tools.read_excel_to_pandas(config.ENQUIRY_FILE_NAME)
 
             logger.info("Enquiry successfully read.")
 
-            return enquiry
+            if not self.validate():
+                logger.warning("{enquiry_df} is not valid.".format(enquiry_df=config.ENQUIRY_DATAFRAME_NAME))
+
+            return self.enquiry_df
+        except FileNotFoundError as file_not_found_error:
+            logger.error("Can NOT find [{enquiry_file_name}]!".format(enquiry_file_name=config.ENQUIRY_FILE_NAME))
+            logger.error(f"{file_not_found_error.__class__}, occur_error: {traceback.format_exc()}")
         except Exception as e:
             logger.error("Application collapse when reading the enquiry!")
             logger.error(f"{e.__class__}, occur_error: {traceback.format_exc()}")
+
+    def validate(self):
+        return reader_tools.check_columns(dataframe=self.enquiry_df,
+                                          name_df=config.ENQUIRY_DATAFRAME_NAME,
+                                          critical_columns=config.ENQUIRY_CRITICAL_COLUMNS)

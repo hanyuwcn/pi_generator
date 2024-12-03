@@ -6,3 +6,6 @@
 class EnquiryReader:
     def read_enquiry(self):
         pass
+
+    def validate(self):
+        pass
