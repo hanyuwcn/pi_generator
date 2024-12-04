@@ -7,6 +7,12 @@ import traceback
 
 class SpicesFooterMaker(FooterMaker):
     def make_footer(self, info):
+        """
+        Make footer from the given information.
+
+        :param info: information to make footers
+        :return: footers of the Invoice
+        """
         try:
             logger.info("Start making footer...")
 

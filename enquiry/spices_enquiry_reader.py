@@ -8,6 +8,12 @@ import traceback
 
 class SpicesEnquiryReader(EnquiryReader):
     def read_enquiry(self):
+        """
+        Read Enquiry from file into a dataframe;
+        also check some default rules for these columns(e.g. containing critical columns).
+
+        :return: a dataframe of Enquiry
+        """
         try:
             logger.info("Start reading enquiry...")
 
@@ -27,6 +33,9 @@ class SpicesEnquiryReader(EnquiryReader):
             logger.error(f"{e.__class__}, occur_error: {traceback.format_exc()}")
 
     def validate(self):
+        """
+        :return: whether the Catalog is valid
+        """
         return reader_tools.check_columns(dataframe=self.enquiry_df,
                                           name_df=config.ENQUIRY_DATAFRAME_NAME,
                                           critical_columns=config.ENQUIRY_CRITICAL_COLUMNS)

@@ -8,6 +8,11 @@ from system import logger
 
 class SpicesHeaderMaker(HeaderMaker):
     def make_header(self):
+        """
+        Make headers of the Invoice from configurations.
+
+        :return: headers of the invoice
+        """
         try:
             logger.info("Start making header...")
 

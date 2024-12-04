@@ -8,24 +8,29 @@ from system import logger
 
 class SpicesQuoteMaker(QuoteMaker):
     def make_quote(self, enquiry_df, catalog_df):
+        """
+        Make the quote of desired products from the Enquiry with the information from the Catalog.
+
+        :param enquiry_df: dataframe that records customer's willingness
+        :param catalog_df: dataframe that records products' information
+
+        :return: a quote of product price, amount and detailed information, as well as a total amount
+        """
         try:
             logger.info("Start making the quote...")
 
-            catalog_columns = list(catalog_df.columns)   ## (TODO) Need to catch columns not exist error
-            catalog_columns = [column_name for column_name in catalog_columns
-                               if column_name not in config.CATALOG_DROP_COLUMNS]
-            catalog_columns.extend([config.QUOTE_UNIT_PRICE, config.QUOTE_QUANTITY, config.QUOTE_AMOUNT])
-            quote_df = pd.DataFrame(columns=catalog_columns)
+            quote_columns = self._get_quote_column_names(catalog_df, enquiry_df)
+            quote_df = pd.DataFrame(columns=quote_columns)
 
             total_amount = 0.0
 
             for product_name in enquiry_df[config.ENQUIRY_PRODUCT_NAME].values:
                 if product_name not in catalog_df[config.CATALOG_PRODUCT_NAME].values:
                     product_info = {config.QUOTE_PRODUCT_NAME: product_name}
-                    logger.debug("{product_name} does not exist in the catalog.".format(product_name=product_name))
+                    logger.debug("Failed to find {product_name} in the catalog.".format(product_name=product_name))
                 else:
                     product_info = {config.QUOTE_PRODUCT_NAME: product_name}
-                    for column in catalog_columns:
+                    for column in quote_columns:
                         if column not in [config.QUOTE_PRODUCT_NAME,
                                           config.QUOTE_UNIT_PRICE,
                                           config.QUOTE_QUANTITY,
@@ -55,7 +60,30 @@ class SpicesQuoteMaker(QuoteMaker):
         return {config.QUOTE_TABLE: quote_df, config.QUOTE_TOTAL_AMOUNT: total_amount}
 
     @staticmethod
+    def _get_quote_column_names(catalog_df, enquiry_df):
+        """
+        Make up column names for the quote based on Catalog and Enquiry
+
+        :param catalog_df: dataframe that records products' information
+        :param enquiry_df: dataframe that records customer's willingness
+        :return: list of column names for the quote
+        """
+        quote_columns = [column_name for column_name in list(catalog_df.columns)
+                         if column_name not in config.CATALOG_DROP_COLUMNS]
+        quote_columns.extend([config.QUOTE_UNIT_PRICE, config.QUOTE_QUANTITY, config.QUOTE_AMOUNT])
+
+        return quote_columns
+
+    @staticmethod
     def _get_unit_price(catalog_df, product_name):
+        """
+        get the unit price of a product in the Catalog
+
+        :param catalog_df: that contains the target product info
+        :param product_name: of the target product
+
+        :return: unit price of the target product
+        """
         unit_price_value = reader_tools.target_column_value_in_dataframe(
             catalog_df, config.CATALOG_PRODUCT_NAME, product_name, config.CATALOG_UNIT_PRICE)
         if pd.isna(unit_price_value):
@@ -67,10 +95,18 @@ class SpicesQuoteMaker(QuoteMaker):
 
     @staticmethod
     def _get_quantity(enquiry_df, product_name):
+        """
+        get the quantity of a product in the Enquiry
+
+        :param enquiry_df: that contains the target product info
+        :param product_name: of the target product
+
+        :rtype: unit price of the target product
+        """
         quantity_value = reader_tools.target_column_value_in_dataframe(enquiry_df, config.ENQUIRY_PRODUCT_NAME,
-                                                                 product_name, config.ENQUIRY_QUANTITY)
+                                                                       product_name, config.ENQUIRY_QUANTITY)
 
         if pd.isna(quantity_value):
             quantity_value = config.ENQUIRY_DEFAULT_QUANTITY
-        unit_price = writer_tools.extract_number_from_string(str(quantity_value))
-        return unit_price
+        quantity = writer_tools.extract_number_from_string(str(quantity_value))
+        return quantity

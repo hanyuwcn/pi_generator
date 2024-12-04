@@ -16,6 +16,13 @@ class SpicesPIWriter(PIWriter):
         self.row = None
 
     def write_to_output(self, header, quote, footer):
+        """
+        Write all desired contents of the invoice into the output file.
+
+        :param header: of the PI
+        :param quote: of the PI
+        :param footer: of the PI
+        """
         try:
             if os.path.exists(config.PI_FILE_NAME):
                 logger.info("{pi_file} already existed.".format(pi_file=config.PI_FILE_NAME))
@@ -48,6 +55,11 @@ class SpicesPIWriter(PIWriter):
         logger.info("Invoice successfully wrote into Excel worksheet.")
 
     def write_header(self, header):
+        """
+        Write the header into the PI file.
+
+        :param header: dictionary of header information
+        """
         try:
             logger.debug("Start writing headers into Excel worksheet.")
 
@@ -68,13 +80,18 @@ class SpicesPIWriter(PIWriter):
             logger.error(f"{e.__class__}, occur_error: {traceback.format_exc()}")
 
     def write_quote(self, quote):
+        """
+        Write the quote into the PI file.
+
+        :param quote: dictionary of quote information
+        """
         try:
             logger.debug("Start writing quote into Excel worksheet.")
 
             quote_df = quote[config.QUOTE_TABLE]
-            self.write_quote_header(list(quote_df.columns))
-            self.write_quote_content(quote_df.values.tolist())
-            self.write_quote_total_amount(len(quote_df.columns), quote[config.QUOTE_TOTAL_AMOUNT])
+            self._write_quote_header(list(quote_df.columns))
+            self._write_quote_content(quote_df.values.tolist())
+            self._write_quote_total_amount(len(quote_df.columns), quote[config.QUOTE_TOTAL_AMOUNT])
             self.row += 1
 
             logger.debug("Quote successfully wrote into Excel worksheet.")
@@ -83,6 +100,11 @@ class SpicesPIWriter(PIWriter):
             logger.error(f"{e.__class__}, occur_error: {traceback.format_exc()}")
 
     def write_footer(self, footer):
+        """
+        Write the footer into the PI file.
+
+        :param footer: dictionary of footer information
+        """
         try:
             logger.debug("Start writing footers into Excel worksheet...")
 
@@ -108,12 +130,12 @@ class SpicesPIWriter(PIWriter):
             logger.error("Application collapse when writing footers into worksheet!")
             logger.error(f"{e.__class__}, occur_error: {traceback.format_exc()}")
 
-    def write_quote_header(self, quote_headers):
+    def _write_quote_header(self, quote_headers):
         self.worksheet.write(self.row, 0, config.PI_INVOICE_INDEX)
         self.worksheet.write_row(self.row, 1, quote_headers)
         self.row += 1
 
-    def write_quote_content(self, quote_content):
+    def _write_quote_content(self, quote_content):
         index = 1
         for quote_item in quote_content:
             quote_item = ["N/A" if pd.isna(x) else x for x in quote_item]
@@ -130,7 +152,7 @@ class SpicesPIWriter(PIWriter):
                 logger.error("Application collapse when writing quote into worksheet!")
                 logger.error(f"{e.__class__}, occur_error: {traceback.format_exc()}")
 
-    def write_quote_total_amount(self, col, total_amount):
+    def _write_quote_total_amount(self, col, total_amount):
         self.worksheet.write(self.row, 0, config.QUOTE_TOTAL)
         self.worksheet.write(self.row, col, writer_tools.translate_value_to_price(total_amount))
         self.row += 1

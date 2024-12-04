@@ -16,6 +16,9 @@ import config
 
 class SpicesProcessor(Processor):
     def __init__(self):
+        """
+        Configure all handlers to deal with components.
+        """
         try:
             logger.debug("Launching all modules for the process.")
 
@@ -33,16 +36,11 @@ class SpicesProcessor(Processor):
             logger.error(f"{e.__class__}, occur_error: {traceback.format_exc()}")
 
     def make_footer(self):
+        """
+        Use the footer maker to make the footer.
+        """
         total_amount = self.quote[config.QUOTE_TOTAL_AMOUNT]
         deposit = writer_tools.get_deposit(total_amount, makeup=False)
 
         self.footer = self.footer_maker.make_footer(
             {config.QUOTE_TOTAL_AMOUNT: total_amount, config.DEPOSIT_HEADER: deposit})
-
-    def process(self):
-        self.read_catalog()
-        self.read_enquiry()
-        self.make_header()
-        self.make_quote()
-        self.make_footer()
-        self.write_to_output()
