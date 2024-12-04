@@ -36,6 +36,6 @@ class SpicesEnquiryReader(EnquiryReader):
         """
         :return: whether the Catalog is valid
         """
-        return reader_tools.check_columns(dataframe=self.enquiry_df,
+        return reader_tools.check_columns_existence(dataframe=self.enquiry_df,
                                           name_df=config.ENQUIRY_DATAFRAME_NAME,
                                           critical_columns=config.ENQUIRY_CRITICAL_COLUMNS)

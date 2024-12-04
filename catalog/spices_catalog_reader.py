@@ -36,7 +36,7 @@ class SpicesCatalogReader(CatalogReader):
         """
         :rtype: whether the Catalog is valid
         """
-        return reader_tools.check_columns(dataframe=self.df_catalog,
+        return reader_tools.check_columns_existence(dataframe=self.df_catalog,
                                           name_df=config.CATALOG_DATAFRAME_NAME,
                                           critical_columns=config.CATALOG_CRITICAL_COLUMNS)
 

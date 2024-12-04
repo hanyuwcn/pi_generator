@@ -22,19 +22,20 @@ class SpicesQuoteMaker(QuoteMaker):
             quote_columns = self._get_quote_column_names(catalog_df, enquiry_df)
             quote_df = pd.DataFrame(columns=quote_columns)
 
+            attributes_columns = [config.QUOTE_PRODUCT_NAME,
+                                  config.QUOTE_UNIT_PRICE,
+                                  config.QUOTE_QUANTITY,
+                                  config.QUOTE_AMOUNT]
             total_amount = 0.0
 
             for product_name in enquiry_df[config.ENQUIRY_PRODUCT_NAME].values:
                 if product_name not in catalog_df[config.CATALOG_PRODUCT_NAME].values:
                     product_info = {config.QUOTE_PRODUCT_NAME: product_name}
-                    logger.debug("Failed to find {product_name} in the catalog.".format(product_name=product_name))
+                    logger.debug(f"Failed to find {product_name} in the catalog.")
                 else:
                     product_info = {config.QUOTE_PRODUCT_NAME: product_name}
                     for column in quote_columns:
-                        if column not in [config.QUOTE_PRODUCT_NAME,
-                                          config.QUOTE_UNIT_PRICE,
-                                          config.QUOTE_QUANTITY,
-                                          config.QUOTE_AMOUNT]:
+                        if column not in attributes_columns:
                             value = reader_tools.target_column_value_in_dataframe(
                                 catalog_df, config.CATALOG_PRODUCT_NAME, product_name, column)
                             product_info[column] = value
@@ -94,9 +95,11 @@ class SpicesQuoteMaker(QuoteMaker):
         return unit_price
 
     @staticmethod
-    def _get_quantity(enquiry_df, product_name):
+    def _get_quantity(enquiry_df, product_name, default_quantity = config.ENQUIRY_DEFAULT_QUANTITY):
         """
-        get the quantity of a product in the Enquiry
+        Get the quantity of a product in the Enquiry
+
+        Quantity will be set to default value if it is not presented in the Enquiry dataframe.
 
         :param enquiry_df: that contains the target product info
         :param product_name: of the target product
@@ -107,6 +110,6 @@ class SpicesQuoteMaker(QuoteMaker):
                                                                        product_name, config.ENQUIRY_QUANTITY)
 
         if pd.isna(quantity_value):
-            quantity_value = config.ENQUIRY_DEFAULT_QUANTITY
+            quantity_value = default_quantity
         quantity = writer_tools.extract_number_from_string(str(quantity_value))
         return quantity

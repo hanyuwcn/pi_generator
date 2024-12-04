@@ -1,7 +1,6 @@
 import config
 
 def authentication():
-    # val = input(config.PASSWORD_MESSAGE)
     counter = 0
     while input(config.PASSWORD_MESSAGE) != config.PASSWORD:
         counter += 1
